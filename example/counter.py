@@ -1,5 +1,8 @@
-from warp10 import Pipe, Packet, Pipeline
+from warp10 import Pipe, Packet, Pipeline, load_packet_from_toml
 
+ButtonCounter = load_packet_from_toml("example/packets.toml", "buttoncounter")
+
+VisitCounter = load_packet_from_toml("example/packets.toml", "visitcounter")
 
 class Counter(Pipe):
 
@@ -11,23 +14,15 @@ class Counter(Pipe):
 
     async def on_connect(self, client):
         self.visits += 1
-        await client.send(Packet().write(
-            "buttoncounter", str(self.counter)
-        ))
-        await self.broadcast(self.clients, Packet().write(
-            "ssrcounter", "Visited " + str(self.visits) + " times."
-        ))
+        await client.send(ButtonCounter(self.counter))
+        await self.broadcast(self.clients, VisitCounter(self.visits))
 
     async def on_message(self, client, msg):
         if msg != "inc_counter":
             return
         self.counter += 1
-        await client.send(Packet().write(
-            "buttoncounter", str(self.counter)
-        ))
-        await self.broadcast(self.clients, Packet().write(
-            "buttoncounter", str(self.counter)
-        ))
+        await client.send(ButtonCounter(self.counter))
+        await self.broadcast(self.clients, ButtonCounter(self.counter))
 
     def __repr__(self):
         return f"<Counter counter={self.counter} visits={self.visits}>"

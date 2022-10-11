@@ -22,7 +22,8 @@ async def ssr(req, ws: Websocket):
         while client.alive:
             msg = await ws.recv()
             if not msg:
-                break
+                print("Message not found")
+                #break
             await pipeline.on_message(client, msg)
     except Exception as e:
         print("[DEBUG]", e)

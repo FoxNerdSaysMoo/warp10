@@ -16,6 +16,7 @@ class Client:
 
     async def send(self, packet):
         try:
-            await self.ws.send(str(packet))
-        except:
+            await self.ws.send(packet.dump())
+        except Exception as e:
+            print("[DEBUG]", e)
             self.alive = False
