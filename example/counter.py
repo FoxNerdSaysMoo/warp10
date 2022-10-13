@@ -1,8 +1,8 @@
-from warp10 import Pipe, Packet, Pipeline, load_packet_from_toml
+from warp10 import Pipe, Packet, Pipeline, CustomPacket
 
-ButtonCounter = load_packet_from_toml("example/packets.toml", "buttoncounter")
+ButtonCounter = CustomPacket.from_toml("example/packets.toml", "buttoncounter")
 
-VisitCounter = load_packet_from_toml("example/packets.toml", "visitcounter")
+VisitCounter = CustomPacket.from_toml("example/packets.toml", "visitcounter")
 
 class Counter(Pipe):
 

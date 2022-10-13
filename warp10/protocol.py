@@ -27,15 +27,18 @@ class Packet:
 
 
 class CustomPacket(Packet):
-    def __init__(self, name, tag, value):
+    def __init__(self, name, tag, value, **kwargs):
         super().__init__()
         self.tag = tag
         self.value = value
         self.name = name
+        if kwargs:
+            print("[WARN] Got unexpected kwargs", kwargs)
 
     def __call__(self, val):
         self.changes = []
-        self.write(self.tag, self.value % val)
+        content = (self.value % val) if not isinstance(val, list) else ("".join([self.value % v for v in val]))
+        self.write(self.tag, content)
         return self
 
     def __repr__(self):
@@ -43,8 +46,8 @@ class CustomPacket(Packet):
 
     __str__ = __repr__
 
-
-def load_packet_from_toml(filename, name):
-    with open(filename, "r") as file:
-        content = toml.loads(file.read())
-    return CustomPacket(name, **(content[name]))
+    @classmethod
+    def from_toml(cls, filename, name):
+        with open(filename, "r") as file:
+            content = toml.loads(file.read())
+        return cls(name, **(content[name]))

@@ -31,7 +31,6 @@ class Pipeline:
         print(msg)
         try:
             await self._event("on_message", client, msg)
-            print("SENT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             return True
         except Exception as e:
             print(e)

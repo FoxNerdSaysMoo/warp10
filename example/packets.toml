@@ -5,3 +5,7 @@ value = "Button has been pressed %s times."
 [visitcounter]
 tag = "ssrcounter"
 value = "Page has been loaded %s times."
+
+[chat]
+tag = "chatdiv"
+value = "<ul class='chatelem'>%s</ul>"

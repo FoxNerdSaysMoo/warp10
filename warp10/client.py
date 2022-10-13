@@ -10,6 +10,7 @@ class Client:
     ws: WebsocketImplProtocol
     pipeline: Pipeline
     alive: bool = True
+    ctx = {}
 
     async def shutdown(self):
         await self.ws.close()
