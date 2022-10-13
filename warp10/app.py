@@ -23,10 +23,10 @@ async def ssr(req, ws: Websocket):
             msg = await ws.recv()
             if not msg:
                 print("Message not found")
-                #break
             await pipeline.on_message(client, msg)
     except Exception as e:
         print("[DEBUG]", e)
     finally:
+        await pipeline.on_disconnect(client)
         print("Closed websocket")
 

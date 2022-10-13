@@ -31,11 +31,13 @@ class Pipeline:
         print(msg)
         try:
             await self._event("on_message", client, msg)
-            print("SENT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             return True
         except Exception as e:
             print(e)
             return False
+
+    async def on_disconnect(self, client):
+        await self._event("on_disconnect", client)
 
     async def connect(self, client):
         self._start()

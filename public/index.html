@@ -9,6 +9,23 @@
     <h1 class="ssrcounter">Loading...</h1>
     <h2 class="buttoncounter">Loading...</h2>
     <button onclick="ssrSocket.send('inc_counter')">Click me!</button>
+    <div class="chatdiv"></div>
+    <input type="text" id="chatbox">
+    <input type="button" id="sendmsg" value="Send" onclick="sendmsg();">
+    <script>
+document.getElementById("chatbox")
+    .addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById("sendmsg").click();
+    }
+});
+
+        function sendmsg() {
+            ssrSocket.send("chat:"+document.getElementById("chatbox").value);
+        document.getElementById("chatbox").value = "";
+        }
+    </script>
     <script defer src="/ssr.js"></script>
 </body>
 </html>
