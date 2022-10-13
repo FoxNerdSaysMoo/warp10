@@ -36,6 +36,9 @@ class Pipeline:
             print(e)
             return False
 
+    async def on_disconnect(self, client):
+        await self._event("on_disconnect", client)
+
     async def connect(self, client):
         self._start()
         self.clients.append(client)

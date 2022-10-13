@@ -22,7 +22,8 @@ document.getElementById("chatbox")
 });
 
         function sendmsg() {
-            ssrSocket.send("chat:"+document.getElementById("chatbox").value)
+            ssrSocket.send("chat:"+document.getElementById("chatbox").value);
+        document.getElementById("chatbox").value = "";
         }
     </script>
     <script defer src="/ssr.js"></script>
