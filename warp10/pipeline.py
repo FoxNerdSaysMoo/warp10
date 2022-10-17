@@ -18,7 +18,6 @@ class Pipeline:
     async def _event(self, name: str, client, *args):
         self._start()
         for pipe in self._pipes:
-            print(pipe)
             try:
                 await getattr(pipe, name)(client, *args)
             except AttributeError as e:
@@ -28,7 +27,6 @@ class Pipeline:
         await self._event("on_connect", client)
 
     async def on_message(self, client, msg):
-        print(msg)
         try:
             await self._event("on_message", client, msg)
             return True
@@ -48,12 +46,6 @@ class Pipe:
     app = None
     
     def __init__(self, *args):
-        ...
-
-    async def on_connect(self, client) -> None:
-        ...
-        
-    async def on_message(self, client, msg) -> None:
         ...
 
     async def broadcast(self, clients, packet):

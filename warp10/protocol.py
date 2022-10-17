@@ -22,8 +22,8 @@ class Packet:
     def write(self, cssclass, content):
         return self._add_change(cssclass, content, "write")
 
-    def insert(self, cssclass, content, index: int):
-        return self._add_change(cssclass, content, "insert", index)
+    def insert(self, cssclass, content, indices: tuple):
+        return self._add_change(cssclass, content, "insert", indices)
 
 
 class CustomPacket(Packet):
