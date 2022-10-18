@@ -23,7 +23,7 @@ ssrSocket.onmessage = function(event) {
                 element.innerHTML += change[2];
                 break;
             case "insert":
-                element.innerHTML = element.innerHTML.slice(0, change[3]) + change[2] + element.innerHTML.slice(change[3]);
+                element.innerHTML = element.innerHTML.slice(0, change[3][0]) + change[2] + element.innerHTML.slice(change[3][1]);
                 break;
             default:
                 console.error(`Unknown method ${change[1]}`)
